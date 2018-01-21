@@ -1,11 +1,11 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
-import JobsList from './components/JobsList';
+import JobsList, { loadData } from './components/JobsList';
 
-export default () => {
-    return (
-        <div>
-            <Route exact path="/" component={JobsList} />
-        </div>
-    );
-};
+export default [
+    {
+        path: '/',
+        component: JobsList,
+        exact: true,
+        loadData
+    }
+];
