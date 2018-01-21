@@ -1,5 +1,5 @@
 {
-  "name": "Jobs Listing",
+  "name": "jobsListing",
   "version": "1.0.0",
   "description": "Jobs Listing with SSR react-redux-webpack",
   "main": "index.js",

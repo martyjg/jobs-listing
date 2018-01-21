@@ -1,11 +1,10 @@
 import React from 'react';
-import JobsList, { loadData } from './components/JobsList';
+import JobsList from './components/JobsList';
 
 export default [
     {
+        ...JobsList,
         path: '/',
-        component: JobsList,
         exact: true,
-        loadData
     }
 ];
