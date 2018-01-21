@@ -1,5 +1,4 @@
 import * as actionTypes from '../constants/action-types';
-// import axios from 'axios';
 
 const data = [
     {
@@ -16,22 +15,14 @@ const data = [
     }
 ];
 
-export const getJobs = () => {
-    // export const getJobs = () => async (dispatch) => {
-    return {
-        type: actionTypes.GET_JOBS,
-        payload: data
-    };
-};
+// simulating a backend call
+export const loadData = () => (dispatch) => {
+    const p = Promise.resolve(data)
 
-export const getJob = (slug) => {
-
-    const result = data.find(obj => obj.slug === slug);
-
-    console.log('hi', result);
-
-    return {
-        type: actionTypes.GET_JOB,
-        payload: result
-    };
+    return p.then((data) => {
+        dispatch({
+            type: actionTypes.GET_JOBS,
+            payload: data
+        })
+    })
 };

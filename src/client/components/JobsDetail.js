@@ -1,46 +1,29 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getJob } from '../actions';
 import { Link } from 'react-router-dom';
+import { getJobBySlug } from '../reducers';
 
-// const mapStateToProps = (state, ownProps) => ({
-//     ...ownProps,
-//     job: state.job
-// });
 
 const mapStateToProps = (state, ownProps) => {
     console.log(state);
     return {
         ...ownProps,
-        job: state.job
+        job: getJobBySlug(state, ownProps.match.params.slug)
     }
 };
 
 class JobsDetail extends Component {
 
-    componentWillMount() {
-        console.log('wtf', this.props.match.params.slug)
-        this.props.getJob(this.props.match.params.slug);
-    }
-
     render() {
         return (
-            <div>JOB</div>
+            <pre>
+                {this.props.job.title}
+            </pre>
         );
     }
 
 }
 
-
-// const loadData = (store) => (
-//     store.dispatch(getJob())
-// );
-
-const loadData = (store, slug) => (
-    store.dispatch(getJob(slug))
-);
-
 export default {
-    loadData,
-    component: connect(mapStateToProps, { getJob })(JobsDetail)
+    component: connect(mapStateToProps)(JobsDetail)
 };

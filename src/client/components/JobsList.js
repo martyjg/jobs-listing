@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getJobs } from '../actions';
+import { loadData } from '../actions';
 import { Link } from 'react-router-dom';
 
 const mapStateToProps = (state, ownProps) => ({
@@ -11,7 +11,8 @@ const mapStateToProps = (state, ownProps) => ({
 class JobsList extends Component {
 
     componentDidMount() {
-        this.props.getJobs();
+        if (!this.props.jobs.length)
+        this.props.loadData();
     }
 
     renderJobs() {
@@ -37,11 +38,6 @@ class JobsList extends Component {
 
 }
 
-const loadData = (store) => (
-    store.dispatch(getJobs())
-);
-
 export default {
-    loadData,
-    component: connect(mapStateToProps, { getJobs })(JobsList)
+    component: connect(mapStateToProps, { loadData })(JobsList)
 };

@@ -3915,51 +3915,10 @@ function verifyPlainObject(value, displayName, methodName) {
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
-exports.getJob = exports.getJobs = undefined;
-
-var _actionTypes = __webpack_require__(52);
-
-var actionTypes = _interopRequireWildcard(_actionTypes);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-// import axios from 'axios';
-
-var data = [{
-    id: 1,
-    title: 'Front End Developer',
-    location: 'Berlin',
-    slug: 'front-end-developer'
-}, {
-    id: 2,
-    title: 'Product Manager',
-    location: 'London',
-    slug: 'product-manager'
-}];
-
-var getJobs = exports.getJobs = function getJobs() {
-    // export const getJobs = () => async (dispatch) => {
-    return {
-        type: actionTypes.GET_JOBS,
-        payload: data
-    };
-};
-
-var getJob = exports.getJob = function getJob(slug) {
-
-    var result = data.find(function (obj) {
-        return obj.slug === slug;
-    });
-
-    console.log('hi', result);
-
-    return {
-        type: actionTypes.GET_JOB,
-        payload: result
-    };
-};
+var GET_JOBS = exports.GET_JOBS = 'GET_JOBS';
+var GET_JOB = exports.GET_JOB = 'GET_JOB';
 
 /***/ }),
 /* 52 */
@@ -3969,10 +3928,27 @@ var getJob = exports.getJob = function getJob(slug) {
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+    value: true
 });
-var GET_JOBS = exports.GET_JOBS = 'GET_JOBS';
-var GET_JOB = exports.GET_JOB = 'GET_JOB';
+exports.getJobBySlug = undefined;
+
+var _redux = __webpack_require__(23);
+
+var _jobs = __webpack_require__(129);
+
+var _jobs2 = _interopRequireDefault(_jobs);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = (0, _redux.combineReducers)({
+    jobs: _jobs2.default
+});
+var getJobBySlug = exports.getJobBySlug = function getJobBySlug(state, slug) {
+    var result = state.jobs.find(function (obj) {
+        return obj.slug === slug;
+    });
+    return result;
+};
 
 /***/ }),
 /* 53 */
@@ -4009,7 +3985,7 @@ var _Routes = __webpack_require__(125);
 
 var _Routes2 = _interopRequireDefault(_Routes);
 
-var _reducers = __webpack_require__(128);
+var _reducers = __webpack_require__(52);
 
 var _reducers2 = _interopRequireDefault(_reducers);
 
@@ -28417,7 +28393,7 @@ var _JobsList = __webpack_require__(126);
 
 var _JobsList2 = _interopRequireDefault(_JobsList);
 
-var _JobsDetail = __webpack_require__(127);
+var _JobsDetail = __webpack_require__(128);
 
 var _JobsDetail2 = _interopRequireDefault(_JobsDetail);
 
@@ -28455,7 +28431,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = __webpack_require__(26);
 
-var _actions = __webpack_require__(51);
+var _actions = __webpack_require__(127);
 
 var _reactRouterDom = __webpack_require__(16);
 
@@ -28485,7 +28461,7 @@ var JobsList = function (_Component) {
     _createClass(JobsList, [{
         key: 'componentDidMount',
         value: function componentDidMount() {
-            this.props.getJobs();
+            if (!this.props.jobs.length) this.props.loadData();
         }
     }, {
         key: 'renderJobs',
@@ -28521,17 +28497,56 @@ var JobsList = function (_Component) {
     return JobsList;
 }(_react.Component);
 
-var loadData = function loadData(store) {
-    return store.dispatch((0, _actions.getJobs)());
-};
-
 exports.default = {
-    loadData: loadData,
-    component: (0, _reactRedux.connect)(mapStateToProps, { getJobs: _actions.getJobs })(JobsList)
+    component: (0, _reactRedux.connect)(mapStateToProps, { loadData: _actions.loadData })(JobsList)
 };
 
 /***/ }),
 /* 127 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.loadData = undefined;
+
+var _actionTypes = __webpack_require__(51);
+
+var actionTypes = _interopRequireWildcard(_actionTypes);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+var data = [{
+    id: 1,
+    title: 'Front End Developer',
+    location: 'Berlin',
+    slug: 'front-end-developer'
+}, {
+    id: 2,
+    title: 'Product Manager',
+    location: 'London',
+    slug: 'product-manager'
+}];
+
+// simulating a backend call
+var loadData = exports.loadData = function loadData() {
+    return function (dispatch) {
+        var p = Promise.resolve(data);
+
+        return p.then(function (data) {
+            dispatch({
+                type: actionTypes.GET_JOBS,
+                payload: data
+            });
+        });
+    };
+};
+
+/***/ }),
+/* 128 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -28551,9 +28566,9 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = __webpack_require__(26);
 
-var _actions = __webpack_require__(51);
-
 var _reactRouterDom = __webpack_require__(16);
+
+var _reducers = __webpack_require__(52);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -28563,15 +28578,10 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-// const mapStateToProps = (state, ownProps) => ({
-//     ...ownProps,
-//     job: state.job
-// });
-
 var mapStateToProps = function mapStateToProps(state, ownProps) {
     console.log(state);
     return _extends({}, ownProps, {
-        job: state.job
+        job: (0, _reducers.getJobBySlug)(state, ownProps.match.params.slug)
     });
 };
 
@@ -28585,18 +28595,12 @@ var JobsDetail = function (_Component) {
     }
 
     _createClass(JobsDetail, [{
-        key: 'componentWillMount',
-        value: function componentWillMount() {
-            console.log('wtf', this.props.match.params.slug);
-            this.props.getJob(this.props.match.params.slug);
-        }
-    }, {
         key: 'render',
         value: function render() {
             return _react2.default.createElement(
-                'div',
+                'pre',
                 null,
-                'JOB'
+                this.props.job.title
             );
         }
     }]);
@@ -28604,42 +28608,9 @@ var JobsDetail = function (_Component) {
     return JobsDetail;
 }(_react.Component);
 
-// const loadData = (store) => (
-//     store.dispatch(getJob())
-// );
-
-var loadData = function loadData(store, slug) {
-    return store.dispatch((0, _actions.getJob)(slug));
-};
-
 exports.default = {
-    loadData: loadData,
-    component: (0, _reactRedux.connect)(mapStateToProps, { getJob: _actions.getJob })(JobsDetail)
+    component: (0, _reactRedux.connect)(mapStateToProps)(JobsDetail)
 };
-
-/***/ }),
-/* 128 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _redux = __webpack_require__(23);
-
-var _jobsReducer = __webpack_require__(129);
-
-var _jobsReducer2 = _interopRequireDefault(_jobsReducer);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = (0, _redux.combineReducers)({
-    jobs: _jobsReducer2.default,
-    job: _jobsReducer2.default
-});
 
 /***/ }),
 /* 129 */
@@ -28652,17 +28623,21 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _actionTypes = __webpack_require__(52);
+var _actionTypes = __webpack_require__(51);
 
 var actionTypes = _interopRequireWildcard(_actionTypes);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 exports.default = function () {
     var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
     var action = arguments[1];
 
     switch (action.type) {
+        case actionTypes.GET_JOB:
+            return [].concat(_toConsumableArray(state), [action.payload]);
         case actionTypes.GET_JOBS:
             return action.payload;
         default:
