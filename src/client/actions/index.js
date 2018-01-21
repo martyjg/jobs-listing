@@ -3,7 +3,6 @@ import * as actionTypes from '../constants/action-types';
 
 export const getJobs = () => {
 // export const getJobs = () => async (dispatch) => {
-// export const getJobs = () => dispatch => {
     const data = [
         {
             id: 1,

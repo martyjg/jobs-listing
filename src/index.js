@@ -12,10 +12,10 @@ app.use(express.static('public'));
 app.get('*', (req, res) => {
     const store = createStore();
 
+    // Matches client request with our list of routes
     const promises = matchRoutes(Routes, req.path).map(({ route }) => {
         return route.loadData ? route.loadData(store) : null;
     });
-    // matches the client route req with something in our routes array
 
     // not really promises
     Promise.all(promises).then(() => {

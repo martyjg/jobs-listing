@@ -1,4 +1,3 @@
-// renders our react app server side and returns a strings
 // import 'babel-polyfill';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
@@ -16,9 +15,6 @@ export default (req, store) => {
         </Provider>
     );
 
-    // we do this to send the public bundle.js back to client after they have received the inital home HTML
-    // we don't need to specify the path directory to the bundle js because of setting the static file before
-    // the client gets the HTML and then sees the script tag and then retrieves that bundle.js
     return `
         <html>
             <head></head>

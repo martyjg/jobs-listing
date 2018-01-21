@@ -1,4 +1,3 @@
-// Startup point for the client side application
 // import 'babel-polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -12,7 +11,6 @@ import Routes from './Routes';
 import reducers from './reducers';
 
 const store = createStore(reducers, {}, applyMiddleware(thunk, logger));
-
 
 ReactDOM.hydrate(
     <Provider store={store}>
