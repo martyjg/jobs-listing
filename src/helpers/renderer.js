@@ -1,4 +1,3 @@
-// import 'babel-polyfill';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom';
@@ -8,7 +7,6 @@ import serialize from 'serialize-javascript';
 import Routes from '../client/Routes';
 
 export default (req, store) => {
-    console.log(req.path);
     const content = renderToString(
         <Provider store={store}>
             <StaticRouter location={req.path} context={{}}>

@@ -5,7 +5,6 @@ import { getJobBySlug } from '../reducers';
 
 
 const mapStateToProps = (state, ownProps) => {
-    console.log(state);
     return {
         ...ownProps,
         job: getJobBySlug(state, ownProps.match.params.slug)
