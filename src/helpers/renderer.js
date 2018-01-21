@@ -8,6 +8,7 @@ import serialize from 'serialize-javascript';
 import Routes from '../client/Routes';
 
 export default (req, store) => {
+    console.log(req.path);
     const content = renderToString(
         <Provider store={store}>
             <StaticRouter location={req.path} context={{}}>
@@ -24,7 +25,7 @@ export default (req, store) => {
                 <script>
                     window.INITIAL_STATE = ${serialize(store.getState())}
                 </script>
-                <script src="bundle.js"></script>
+                <script src="/bundle.js"></script>
             </body>
         </html>
     `;

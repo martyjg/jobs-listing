@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 const mapStateToProps = (state, ownProps) => ({
     ...ownProps,
     jobs: state.jobs
-})
+});
 
 class JobsList extends Component {
 
@@ -15,15 +15,13 @@ class JobsList extends Component {
     }
 
     renderJobs() {
-        return this.props.jobs.map(job => {
-            return (
-                <li key={job.id}>
-                    <Link to={`/${job.id}`}>
-                        {job.title}
-                    </Link>
-                </li>
-            );
-        });
+        return this.props.jobs.map(job => (
+            <li key={job.id}>
+                <Link to={`/jobs/${job.slug}`}>
+                    {job.title}
+                </Link>
+            </li>
+        ));
     }
 
     render() {
@@ -39,9 +37,9 @@ class JobsList extends Component {
 
 }
 
-const loadData = (store) => {
-    return store.dispatch(getJobs());
-};
+const loadData = (store) => (
+    store.dispatch(getJobs())
+);
 
 export default {
     loadData,

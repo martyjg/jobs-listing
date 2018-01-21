@@ -14,9 +14,10 @@ app.get('*', (req, res) => {
 
     // Matches client request with our list of routes
     const promises = matchRoutes(Routes, req.path).map(({ route }) => {
-        return route.loadData ? route.loadData(store) : null;
+        const slug = req.path.split('/').slice(-1)[0];
+        return route.loadData ? route.loadData(store, slug) : null;
     });
-
+    
     // not really promises
     Promise.all(promises).then(() => {
         res.send(renderer(req, store));
