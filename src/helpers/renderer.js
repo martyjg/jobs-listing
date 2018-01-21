@@ -1,4 +1,5 @@
 // renders our react app server side and returns a strings
+import 'babel-polyfill';
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom';

@@ -1,9 +1,9 @@
-import { GET_JOBS } from '../actions';
+import * as actionTypes from '../constants/action-types';
 
 export default (state = [], action) => {
     switch (action.type) {
-        case GET_JOBS:
-            return action.payload.data;
+        case actionTypes.GET_JOBS:
+            return action.payload;
         default:
             return state;
     }
