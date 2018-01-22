@@ -2,14 +2,14 @@ import * as actionTypes from '../constants/action-types';
 
 // simulating a backend call
 export const loadData = () => (dispatch) => {
-    const p = Promise.resolve(data)
+    const p = Promise.resolve(data);
 
     return p.then((data) => {
         dispatch({
-            type: actionTypes.GET_JOBS,
+            type: actionTypes.LOAD_DATA,
             payload: data
-        })
-    })
+        });
+    });
 };
 
 const data = [

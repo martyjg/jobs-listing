@@ -5682,8 +5682,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-var GET_JOBS = exports.GET_JOBS = 'GET_JOBS';
-var GET_JOB = exports.GET_JOB = 'GET_JOB';
+var LOAD_DATA = exports.LOAD_DATA = 'LOAD_DATA';
 
 /***/ }),
 /* 54 */
@@ -32462,7 +32461,9 @@ var JobsList = function (_Component) {
     _createClass(JobsList, [{
         key: 'componentDidMount',
         value: function componentDidMount() {
-            if (!this.props.jobs.length) this.props.loadData();
+            if (!this.props.jobs.length) {
+                this.props.loadData();
+            }
         }
     }, {
         key: 'render',
@@ -32523,7 +32524,7 @@ var loadData = exports.loadData = function loadData() {
 
         return p.then(function (data) {
             dispatch({
-                type: actionTypes.GET_JOBS,
+                type: actionTypes.LOAD_DATA,
                 payload: data
             });
         });
@@ -33556,8 +33557,6 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var _react = __webpack_require__(0);
@@ -33574,12 +33573,6 @@ var _reactHelmet = __webpack_require__(54);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
 var mapStateToProps = function mapStateToProps(state, ownProps) {
     return _extends({}, ownProps, {
         job: (0, _reducers.getJobBySlug)(state, ownProps.match.params.slug)
@@ -33588,53 +33581,37 @@ var mapStateToProps = function mapStateToProps(state, ownProps) {
 
 var placeholder = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse condimentum mi dui, quis ornare magna mattis in. Donec libero eros, sollicitudin nec vehicula ac, facilisis maximus nunc. Vivamus quis urna sodales, convallis urna et, bibendum erat. Nunc varius arcu sit amet lorem tincidunt tincidunt. Ut faucibus libero id elit mattis, sed varius est tempus. Nunc varius scelerisque metus, quis lobortis eros pellentesque eu. Maecenas ante lorem, congue nec mi eget, lobortis gravida sapien. Donec a eros fringilla, tincidunt justo eu, laoreet diam. Praesent tincidunt egestas tortor eget venenatis. Sed eleifend libero eu tortor fermentum, et consectetur nulla ornare.';
 
-var JobsDetail = function (_Component) {
-    _inherits(JobsDetail, _Component);
-
-    function JobsDetail() {
-        _classCallCheck(this, JobsDetail);
-
-        return _possibleConstructorReturn(this, (JobsDetail.__proto__ || Object.getPrototypeOf(JobsDetail)).apply(this, arguments));
-    }
-
-    _createClass(JobsDetail, [{
-        key: 'render',
-        value: function render() {
-            var job = this.props.job;
-
-            return _react2.default.createElement(
-                'div',
+var JobsDetail = function JobsDetail(_ref) {
+    var job = _ref.job;
+    return _react2.default.createElement(
+        'div',
+        null,
+        _react2.default.createElement(
+            _reactHelmet.Helmet,
+            null,
+            _react2.default.createElement(
+                'title',
                 null,
-                _react2.default.createElement(
-                    _reactHelmet.Helmet,
-                    null,
-                    _react2.default.createElement(
-                        'title',
-                        null,
-                        job.title
-                    ),
-                    _react2.default.createElement('meta', { property: 'og:type', content: 'Job Posting' })
-                ),
-                _react2.default.createElement('h2', { dangerouslySetInnerHTML: { __html: job.title } }),
-                _react2.default.createElement('h3', { dangerouslySetInnerHTML: { __html: job.location } }),
-                _react2.default.createElement(
-                    'p',
-                    null,
-                    'Salary: ',
-                    job.salary ? job.salary : 'Not Specified'
-                ),
-                _react2.default.createElement('p', { dangerouslySetInnerHTML: { __html: placeholder } }),
-                _react2.default.createElement(
-                    _reactRouterDom.Link,
-                    { to: '/jobs' },
-                    '\u2190 Back to Listing'
-                )
-            );
-        }
-    }]);
-
-    return JobsDetail;
-}(_react.Component);
+                job.title
+            ),
+            _react2.default.createElement('meta', { property: 'og:type', content: 'Job Posting' })
+        ),
+        _react2.default.createElement('h2', { dangerouslySetInnerHTML: { __html: job.title } }),
+        _react2.default.createElement('h3', { dangerouslySetInnerHTML: { __html: job.location } }),
+        _react2.default.createElement(
+            'p',
+            null,
+            'Salary: ',
+            job.salary ? job.salary : 'Not Specified'
+        ),
+        _react2.default.createElement('p', { dangerouslySetInnerHTML: { __html: placeholder } }),
+        _react2.default.createElement(
+            _reactRouterDom.Link,
+            { to: '/jobs' },
+            '\u2190 Back to Listing'
+        )
+    );
+};
 
 exports.default = {
     component: (0, _reactRedux.connect)(mapStateToProps)(JobsDetail)
@@ -33657,16 +33634,12 @@ var actionTypes = _interopRequireWildcard(_actionTypes);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-
 exports.default = function () {
     var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
     var action = arguments[1];
 
     switch (action.type) {
-        case actionTypes.GET_JOB:
-            return [].concat(_toConsumableArray(state), [action.payload]);
-        case actionTypes.GET_JOBS:
+        case actionTypes.LOAD_DATA:
             return action.payload;
         default:
             return state;

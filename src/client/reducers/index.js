@@ -8,4 +8,4 @@ export default combineReducers({
 export const getJobBySlug = (state, slug) => {
     const result = state.jobs.find(obj => obj.slug === slug)
     return result;
-}
+};

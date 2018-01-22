@@ -13,11 +13,11 @@ app.get('*', (req, res) => {
     const store = createStore();
 
     // Matches client request with our list of routes
+    // Populate server store
     const promises = matchRoutes(Routes, req.path).map(({ route }) => {
         return store.dispatch(loadData());
     });
 
-    // not really promises
     Promise.all(promises).then(() => {
         res.send(renderer(req, store));
     });

@@ -25,7 +25,7 @@ export default (req, store) => {
                 <style>
                     body {margin: 0;}
                     * {font-family: Arial, Helvetica, sans-serif; color: #171515;}
-                    ul { ist-style: none; padding-left: 0; margin: 0;}
+                    ul {list-style: none; padding-left: 0; margin: 0;}
                     a {color: #171515;text-decoration: none;}
                 </style>
             </head>

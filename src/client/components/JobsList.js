@@ -13,8 +13,9 @@ const mapStateToProps = (state, ownProps) => ({
 class JobsList extends Component {
 
     componentDidMount() {
-        if (!this.props.jobs.length)
-        this.props.loadData();
+        if (!this.props.jobs.length) {
+            this.props.loadData();
+        }
     }
 
     render() {
