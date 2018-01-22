@@ -17,13 +17,15 @@ const data = [
         id: 1,
         title: 'Front End Developer',
         location: 'Berlin',
-        slug: 'front-end-developer'
+        slug: 'front-end-developer',
+        salary: '40.000€'
     },
     {
         id: 2,
         title: 'Product Manager',
         location: 'London',
-        slug: 'product-manager'
+        slug: 'product-manager',
+        salary: '£40,000'
     },
     {
         id: 3,
@@ -35,12 +37,13 @@ const data = [
         id: 4,
         title: 'QA Specialist',
         location: 'London',
-        slug: 'qa-specialist'
+        slug: 'qa-specialist',
+        salary: '£40,000'
     },
     {
         id: 5,
         title: 'Back End Developer',
-        location: 'Berlin',
+        location: 'Remote',
         slug: 'back-end-developer'
     },
     {
@@ -58,7 +61,7 @@ const data = [
     {
         id: 8,
         title: 'Scrum Master',
-        location: 'London',
+        location: 'Remote',
         slug: 'scrum-master'
     },
 ];
