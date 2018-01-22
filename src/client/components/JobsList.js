@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { loadData } from '../actions';
-import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
+import ListingItem from './ListingItem';
+import styled from 'styled-components';
 
 const mapStateToProps = (state, ownProps) => ({
     ...ownProps,
@@ -15,22 +17,17 @@ class JobsList extends Component {
         this.props.loadData();
     }
 
-    renderJobs() {
-        return this.props.jobs.map(job => (
-            <li key={job.id}>
-                <Link to={`/jobs/${job.slug}`}>
-                    {job.title}
-                </Link>
-            </li>
-        ));
-    }
-
     render() {
         return (
             <div>
-                Here's a big list of jobs:
+                <Helmet>
+                    <title>Jobs Listing</title>
+                    <meta property="og:type" content='Job Board' />
+                </Helmet>
                 <ul>
-                    {this.renderJobs()}
+                    {this.props.jobs.map((job) => (
+                        <ListingItem content={job} key={job.id} />
+                    ))}
                 </ul>
             </div>
         );

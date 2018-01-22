@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { getJobBySlug } from '../reducers';
+import { Helmet } from 'react-helmet';
 
 
 const mapStateToProps = (state, ownProps) => {
@@ -15,9 +16,13 @@ class JobsDetail extends Component {
 
     render() {
         return (
-            <pre>
+            <div>
+                <Helmet>
+                    <title>{this.props.job.title}</title>
+                    <meta property="og:type" content='Job Posting' />
+                </Helmet>
                 {this.props.job.title}
-            </pre>
+            </div>
         );
     }
 
